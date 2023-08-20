@@ -1,0 +1,101 @@
+@import "mixins"
+
+fluid($property, $w320, $w1024, $w1920)
+  width-between-property $property, 320, $w320, 1024,  $w1024, true, false
+  width-between-property $property, 1024, $w1024, 1920, $w1920, false, true
+
+step($property, $w320, $w1024, $w1920)
+  +width-lessthan(320)
+    {$property} $w320
+  +width-between(320, 1024)
+    {$property} $w1024
+  +width-morethan(1024)
+    {$property} $w1920
+
+
+html
+  background-color: rgb(158 231 240)
+  fluid 'font-size', 14, 16, 18
+
+body
+  margin 0
+  padding 0
+  font-family Roboto, sans-serif
+  min-width: 320px
+  position relative
+
+html, body
+  height 100%
+  overflow-x hidden
+
+.container
+  margin 0 20px
+  height 100%
+  width 100%
+  +width-morethan(480)
+    margin 0 40px
+  +width-morethan(990)
+    width: 900px
+    margin: 0 auto
+  +width-lessthan(900)
+    display: flex
+    flex-direction column-reverse
+    align-items flex-start
+
+
+.content
+  position relative
+  padding-top: 5rem
+
+h3
+  font-weight 100
+  step 'font-size', 1.6rem, 2.1rem, 2.3rem
+  margin 0 0 0 0
+h2
+  step 'font-size', 3.2rem, 4.5rem, 5.6rem
+  font-weight 700
+  margin 0 0 0 0
+h4
+  font-size 3rem
+  step 'font-size', 2rem, 2.4rem, 3rem
+  font-weight 100
+  margin 0 20px 0 0
+
+dl
+  display: flex
+  flex-wrap: wrap
+  width 25rem
+  dt
+    width 30%
+    font-weight 600
+    display block
+
+  dd
+    width 70%
+    margin 0
+    display block
+  dt, dd
+    margin-bottom 1rem
+
+.image
+  background: url('./images/girl.jpg')
+  background-size contain
+  background-repeat no-repeat
+  background-position bottom
+  margin-bottom auto
+  width 100%
+
+  +width-lessthan(900)
+    max-width: 600px
+
+  &:after
+    content ''
+    display block
+    padding-bottom 82%
+
+  +width-morethan(900)
+    position absolute
+    width 60rem
+    left 90%
+    bottom 0px
+    transform: translate(-50%, 0px)
